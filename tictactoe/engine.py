@@ -49,13 +49,21 @@ class Engine:
                     return min_eval, best_move
             return min_eval, best_move
 
+    def evaluate_board(self, board: Board, depth: int) -> Score: #Sam's change to switch the return statements to reverse what the ai likes and doesn't like
+        if board.winner() == self.ai:
+            return -1 * board.size**2 - depth
+        elif board.winner() == self.foe:
+            return board.size**2 - depth
+        return 0
+    """
     def evaluate_board(self, board: Board, depth: int) -> Score:
         if board.winner() == self.ai:
             return board.size**2 - depth
         elif board.winner() == self.foe:
             return -1 * board.size**2 - depth
         return 0
-
+    """
+    
     def evaluate_best_move(self, board: Board) -> Square:
         best_move = self.minimax(board, True, 0, float('-inf'),
                                  float('inf'))[1]
